@@ -29,7 +29,7 @@ const Search = () => {
   const [trendData, setTrendData] = useState<any>(null);
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
   const trendChartRef = useRef<HTMLCanvasElement>(null);
-  const trendChart = useRef<Chart | null>(null);
+  const trendChart = useRef<any | null>(null);
 
   // 从本地存储加载搜索历史
   useEffect(() => {

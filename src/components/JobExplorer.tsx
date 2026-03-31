@@ -529,7 +529,7 @@ const JobExplorer: React.FC = () => {
                               <XAxis dataKey="name" tick={{ fill: '#4b5563', fontSize: 12 }} />
                               <YAxis tick={{ fill: '#9ca3af' }} />
                               <Tooltip 
-                                formatter={(value) => [`¥${value.toLocaleString()}`, '月薪']} 
+                                formatter={(value) => [`¥${value?.toLocaleString() || '0'}`, '月薪']} 
                                 contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb' }}
                               />
                               <Bar dataKey="value" fill="#0ea5e9" radius={[4, 4, 0, 0]} />
@@ -582,7 +582,7 @@ const JobExplorer: React.FC = () => {
                                   outerRadius={80}
                                   paddingAngle={2}
                                   dataKey="value"
-                                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                                  label={({ name, percent }) => `${name} ${((percent || 0) * 100).toFixed(0)}%`}
                                   labelLine={false}
                                 >
                                   <Cell key="fullTime" fill="#0ea5e9" />
@@ -720,7 +720,7 @@ const JobExplorer: React.FC = () => {
                                   outerRadius={80}
                                   paddingAngle={2}
                                   dataKey="value"
-                                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                                  label={({ name, percent }) => `${name} ${((percent || 0) * 100).toFixed(0)}%`}
                                   labelLine={false}
                                 >
                                   <Cell key="startup" fill="#3b82f6" />
