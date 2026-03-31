@@ -33,9 +33,11 @@ const Search = () => {
 
   // 从本地存储加载搜索历史
   useEffect(() => {
-    const savedHistory = localStorage.getItem('searchHistory');
-    if (savedHistory) {
-      setSearchHistory(JSON.parse(savedHistory));
+    if (typeof window !== 'undefined') {
+      const savedHistory = localStorage.getItem('searchHistory');
+      if (savedHistory) {
+        setSearchHistory(JSON.parse(savedHistory));
+      }
     }
   }, []);
 
@@ -45,20 +47,26 @@ const Search = () => {
     
     const updatedHistory = [searchQuery, ...searchHistory.filter(item => item !== searchQuery)].slice(0, 10);
     setSearchHistory(updatedHistory);
-    localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
+    }
   };
 
   // 清除搜索历史
   const clearSearchHistory = () => {
     setSearchHistory([]);
-    localStorage.removeItem('searchHistory');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('searchHistory');
+    }
   };
 
   // 删除单个搜索历史
   const removeSearchHistory = (item: string) => {
     const updatedHistory = searchHistory.filter(i => i !== item);
     setSearchHistory(updatedHistory);
-    localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
+    }
   };
 
   // 从搜索历史中选择搜索

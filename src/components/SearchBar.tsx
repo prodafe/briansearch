@@ -11,9 +11,11 @@ const SearchBar = () => {
 
   // 从localStorage加载最近搜索
   useEffect(() => {
-    const savedSearches = localStorage.getItem('recentSearches');
-    if (savedSearches) {
-      setRecentSearches(JSON.parse(savedSearches));
+    if (typeof window !== 'undefined') {
+      const savedSearches = localStorage.getItem('recentSearches');
+      if (savedSearches) {
+        setRecentSearches(JSON.parse(savedSearches));
+      }
     }
   }, []);
 
@@ -56,7 +58,9 @@ const SearchBar = () => {
       // 保存到最近搜索
       const newSearches = [query, ...recentSearches.filter(item => item !== query)].slice(0, 5);
       setRecentSearches(newSearches);
-      localStorage.setItem('recentSearches', JSON.stringify(newSearches));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('recentSearches', JSON.stringify(newSearches));
+      }
       
       router.push(`/search?q=${encodeURIComponent(query)}`);
     }
@@ -66,7 +70,9 @@ const SearchBar = () => {
     // 保存到最近搜索
     const newSearches = [keyword, ...recentSearches.filter(item => item !== keyword)].slice(0, 5);
     setRecentSearches(newSearches);
-    localStorage.setItem('recentSearches', JSON.stringify(newSearches));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('recentSearches', JSON.stringify(newSearches));
+    }
     
     router.push(`/search?q=${encodeURIComponent(keyword)}`);
   };
@@ -81,14 +87,18 @@ const SearchBar = () => {
     // 保存到最近搜索
     const newSearches = [suggestion, ...recentSearches.filter(item => item !== suggestion)].slice(0, 5);
     setRecentSearches(newSearches);
-    localStorage.setItem('recentSearches', JSON.stringify(newSearches));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('recentSearches', JSON.stringify(newSearches));
+    }
     
     router.push(`/search?q=${encodeURIComponent(suggestion)}`);
   };
 
   const clearRecentSearches = () => {
     setRecentSearches([]);
-    localStorage.removeItem('recentSearches');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('recentSearches');
+    }
   };
 
   // 热门搜索词
